@@ -27,6 +27,8 @@ export const Login = () => {
 
   return (
     <div className={s.container}>
+      🔄
+      <span style={{ fontSize: "50px" }}>♻ &#128260; &#128580;</span>
       <h1>Login</h1>
       <button onClick={loginHandler}>login</button>
     </div>
