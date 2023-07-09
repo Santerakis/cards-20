@@ -1,9 +1,9 @@
-import {
-  useAddCardMutation,
-  useDeleteCardMutation,
-  useGetCardsQuery,
-  useUpdateCardMutation,
-} from "features/cards/service/cards.api";
+// import {
+//   useAddCardMutation,
+//   useDeleteCardMutation,
+//   useGetCardsQuery,
+//   useUpdateCardMutation,
+// } from "features/cards/service/cards.api";
 import { useParams } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import {
@@ -12,9 +12,10 @@ import {
 } from "features/cards/service/cards.api.types";
 import { nanoid } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { Pagination } from "@mui/material";
+import { dividerClasses, Pagination } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import s from "./styles.module.css";
+import { useGetCardsQuery } from "../../service/cards.api";
 
 type ErrorDataType = {
   error: string;
@@ -31,6 +32,7 @@ type CustomerError = {
 export const Cards = () => {
   let { packId } = useParams<{ packId: string }>();
   console.log("packId: ", packId);
+  const { data, error, isLoading, isError } = useGetCardsQuery(packId ?? "");
 
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
@@ -87,10 +89,17 @@ export const Cards = () => {
   // 	const err = error as any
   // 	return <h1 style={{ color: 'red' }}>{err.data.error}</h1>;
   // }
+  if (isLoading) return <span style={{ fontSize: "50px" }}>♻</span>;
+  if (isError) {
+    const err = error as any;
+    return <h1>{err.data.error}</h1>;
+  }
 
   return (
     <div>
       <h1>Cards</h1>
+
+      <div>{JSON.stringify(data)}</div>
 
       {/*<button onClick={addCardHandler}>add card</button>*/}
       {/*<div>*/}

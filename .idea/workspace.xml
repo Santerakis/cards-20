@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6cb77175-bce6-4cd1-97b0-6f87b404e945" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
       <updated>1688834341547</updated>
       <workItem from="1688834343634" duration="2670000" />
       <workItem from="1688911109893" duration="155000" />
-      <workItem from="1688911273993" duration="2479000" />
+      <workItem from="1688911273993" duration="4744000" />
     </task>
     <servers />
   </component>
