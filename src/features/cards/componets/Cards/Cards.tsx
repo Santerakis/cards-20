@@ -33,6 +33,7 @@ export const Cards = () => {
   let { packId } = useParams<{ packId: string }>();
   console.log("packId: ", packId);
   const { data, error, isLoading, isError } = useGetCardsQuery(packId ?? "");
+  console.log("data: ", data);
 
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
@@ -54,7 +55,6 @@ export const Cards = () => {
   //   };
   //   updateCard(newCard);
   // };
-
   // const addCardHandler = () => {
   // 	if (packId) {
   // 		const newCard: ArgCreateCardType = {
@@ -89,18 +89,21 @@ export const Cards = () => {
   // 	const err = error as any
   // 	return <h1 style={{ color: 'red' }}>{err.data.error}</h1>;
   // }
+
   if (isLoading) return <span style={{ fontSize: "50px" }}>♻</span>;
   if (isError) {
     const err = error as any;
+    // const err: any = error
     return <h1>{err.data.error}</h1>;
   }
-
+  // data? потому что изначально data is undefined
   return (
     <div>
       <h1>Cards</h1>
-
-      <div>{JSON.stringify(data)}</div>
-
+      {/*<div>{JSON.stringify(data)}</div>*/}
+      {data?.cards.map((c, i) => {
+        return <div key={i}>{c.question}</div>;
+      })}
       {/*<button onClick={addCardHandler}>add card</button>*/}
       {/*<div>*/}
       {/*  {data?.cards.map((card) => {*/}

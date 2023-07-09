@@ -28,18 +28,18 @@ const slice = createSlice({
           state.isLoading = true;
         }
       )
-      .addMatcher(
-        (action) => action.type.endsWith("/rejected"),
-        (state, action) => {
-          const err = action.payload as Error | AxiosError<{ error: string }>;
-          if (isAxiosError(err)) {
-            state.error = err.response ? err.response.data.error : err.message;
-          } else {
-            state.error = `Native error ${err.message}`;
-          }
-          state.isLoading = false;
-        }
-      )
+      // .addMatcher(
+      //   (action) => action.type.endsWith("/rejected"),
+      //   (state, action) => {
+      //     const err = action.payload as Error | AxiosError<{ error: string }>;
+      //     if (isAxiosError(err)) {
+      //       state.error = err.response ? err.response.data.error : err.message;
+      //     } else {
+      //       state.error = `Native error ${err.message}`;
+      //     }
+      //     state.isLoading = false;
+      //   }
+      // )
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         (state) => {

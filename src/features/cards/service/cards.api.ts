@@ -13,6 +13,7 @@ import { baseURL } from "common/api/common.api";
 
 //❗1) Обязательно импорт должен быть таким, иначе будут ошибки
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { FetchCardsResponseType } from "./cards.api.types";
 
 // ✅ 2) createApi - это функция, предоставляемая RTK Query,
 // которая позволяет создать объект API для взаимодействия с внешними API и управления состоянием приложения
@@ -29,7 +30,7 @@ export const cardsApi = createApi({
     return {
       // 1 параметр - тип того, что возвращает сервер (ResultType)
       // 2 параметр - тип query аргументов (QueryArg)
-      getCards: build.query<any, string>({
+      getCards: build.query<FetchCardsResponseType, string>({
         query: (packId) => {
           return {
             method: "GET",
