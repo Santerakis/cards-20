@@ -4,12 +4,12 @@ import { packsThunks } from "features/packs/packs.slice";
 import s from "./styles.module.css";
 import { PackType } from "features/packs/packs.api";
 import { packsSelector } from "features/packs/packs.selector";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export const Packs = () => {
   const cardPacks = useAppSelector(packsSelector);
 
-	const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { fetchPacks, createPack, removePack, updatePack } =
     useActions(packsThunks);
@@ -34,13 +34,13 @@ export const Packs = () => {
     updatePack({ ...pack, name: newName });
   };
 
-	const navigateToCardsPageHandler = (packId: string) => {
-		navigate(`/cards/${packId}`);
-	};
+  const navigateToCardsPageHandler = (packId: string) => {
+    navigate(`/cards/${packId}`);
+  };
 
   return (
     <div>
-      <h1>Packs</h1>
+      <h1>Packs 📁</h1>
       <button onClick={addPackHandler}>add pack</button>
       <div>
         {cardPacks.map((p) => {
@@ -57,7 +57,9 @@ export const Packs = () => {
               </p>
               <button onClick={() => removePackHandler(p._id)}>remove</button>
               <button onClick={() => updatePackHandler(p)}>update</button>
-              <button onClick={() => navigateToCardsPageHandler(p._id)}>на страницу карточек</button>
+              <button onClick={() => navigateToCardsPageHandler(p._id)}>
+                на страницу карточек
+              </button>
             </div>
           );
         })}

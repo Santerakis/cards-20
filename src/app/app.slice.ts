@@ -21,6 +21,7 @@ const slice = createSlice({
     builder
       .addMatcher(
         (action) => {
+          //lifehack что бы небыло глобальной линии-крутилки
           if (action.type === "cardsApi/executeQuery/pending") return false;
           return action.type.endsWith("/pending");
         },

@@ -99,7 +99,7 @@ export const Cards = () => {
   // data? потому что изначально data is undefined
   return (
     <div>
-      <h1>Cards</h1>
+      <h1>Cards 🃏</h1>
       {/*<div>{JSON.stringify(data)}</div>*/}
       {data?.cards.map((c, i) => {
         return <div key={i}>{c.question}</div>;
