@@ -4,6 +4,7 @@
     <list default="true" id="6cb77175-bce6-4cd1-97b0-6f87b404e945" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,23 +48,12 @@
       <workItem from="1688834343634" duration="2670000" />
       <workItem from="1688911109893" duration="155000" />
       <workItem from="1688911273993" duration="6876000" />
-      <workItem from="1688972235493" duration="3429000" />
+      <workItem from="1688972235493" duration="5841000" />
+      <workItem from="1689008197751" duration="2259000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx</url>
-          <line>32</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

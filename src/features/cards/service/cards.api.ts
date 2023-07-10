@@ -46,7 +46,8 @@ export const cardsApi = createApi({
 });
 
 // ✅ 6) createApi возвращает объект API, который содержит все эндпоинты, определенные в параметре endpoints, а также набор вспомогательных функций, таких как useLazyQuery и usePrefetch.
-export const { useGetCardsQuery } = cardsApi;
+// export const { useGetCardsQuery } = cardsApi;
+export const { useLazyGetCardsQuery } = cardsApi;
 
 //
 //
