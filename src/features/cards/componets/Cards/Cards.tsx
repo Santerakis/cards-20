@@ -30,11 +30,15 @@ type CustomerError = {
 };
 
 export const Cards = () => {
+  // debugger;
   let { packId } = useParams<{ packId: string }>();
+  const [skip, setSkip] = useState(true);
   console.log("packId: ", packId);
-  const { data, error, isLoading, isError } = useGetCardsQuery(packId ?? "");
+  const { data, error, isLoading, isError } = useGetCardsQuery(packId ?? "", {
+    skip,
+  });
   console.log("data: ", data);
-
+  const fetchCardsHandler = () => setSkip(false);
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
   //
@@ -101,6 +105,7 @@ export const Cards = () => {
     <div>
       <h1>Cards 🃏</h1>
       {/*<div>{JSON.stringify(data)}</div>*/}
+      <button onClick={fetchCardsHandler}>fetch cards</button>
       {data?.cards.map((c, i) => {
         return <div key={i}>{c.question}</div>;
       })}
