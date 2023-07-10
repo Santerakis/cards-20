@@ -119,7 +119,6 @@ export const Cards = () => {
     <div>
       <h1>Cards</h1>
       <button onClick={addCardHandler}>add card</button>
-      <button onClick={refetch}>get new cards</button>
       <div>
         {data &&
           data.cards.map((card) => {

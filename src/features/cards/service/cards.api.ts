@@ -25,10 +25,8 @@ export const cardsApi = createApi({
   // ✅ 3)reducerPath - имя среза (slice) Redux, куда будут сохранены состояние и экшены для этого API.
   reducerPath: "cardsApi",
   // ✅ 4) baseQuery - конфигурация для HTTP клиента, который будет использоваться для отправки запросов.
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseURL,
-    credentials: "include",
-  }),
+  baseQuery: fetchBaseQuery({ baseUrl: baseURL, credentials: "include" }),
+  tagTypes: ["Card"],
   // ✅ 5) endpoints - объект, содержащий эндпоинты для этого API, описанные с помощью функций, которые будут вызываться при вызове соответствующих методов API (например, get, post, put, patch, delete). Обязательный параметр.
   endpoints: (build) => {
     return {
@@ -44,6 +42,7 @@ export const cardsApi = createApi({
             },
           };
         },
+        providesTags: ["Card"],
       }),
       addCard: build.mutation<AddCardResponseType, ArgCreateCardType>({
         query: (card) => {
@@ -55,6 +54,7 @@ export const cardsApi = createApi({
             },
           };
         },
+        invalidatesTags: ["Card"],
       }),
     };
   },
