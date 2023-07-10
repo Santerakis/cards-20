@@ -2,7 +2,9 @@ import { useParams } from "react-router-dom";
 
 import { ChangeEvent, useState } from "react";
 import s from "./styles.module.css";
-import { useLazyGetCardsQuery } from "../../service/cards.api";
+import { useAddCardMutation, useGetCardsQuery } from "../../service/cards.api";
+import { nanoid } from "@reduxjs/toolkit";
+import { ArgCreateCardType } from "../../service/cards.api.types";
 
 type ErrorDataType = {
   error: string;
@@ -19,20 +21,12 @@ type CustomerError = {
 export const Cards = () => {
   // debugger;
   let { packId } = useParams<{ packId: string }>();
-  const [skip, setSkip] = useState(true);
+
   console.log("packId: ", packId);
-  //потому что useParams может не найти packId и вернет undefined
-  // const { data, error, isLoading, isError } = useGetCardsQuery(packId ?? "", {
-  //   skip,
-  // });
-  const [getCards, { data, isError, isLoading, error }] = useLazyGetCardsQuery(
-    {}
-  );
-  console.log("data: ", data);
-  const fetchCardsHandler = () => {
-    // setSkip(false);
-    getCards(packId ?? "");
-  };
+  // потому что useParams может не найти packId и вернет undefined
+  const { data, error, isLoading, isError } = useGetCardsQuery(packId ?? "");
+  const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
+
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
   //
@@ -88,17 +82,29 @@ export const Cards = () => {
   // 	return <h1 style={{ color: 'red' }}>{err.data.error}</h1>;
   // }
 
-  if (isLoading) return <span style={{ fontSize: "50px" }}>♻</span>;
+  if (isLoading || isAddLoading)
+    return <span style={{ fontSize: "50px" }}>♻</span>;
   if (isError) {
     const err = error as any; // const err: any = error
     return <h1>{err.data.error}</h1>;
   }
+
+  const addCardHandler = () => {
+    if (packId) {
+      const newCard: ArgCreateCardType = {
+        cardsPack_id: packId,
+        question: "🚲 question " + nanoid(),
+        answer: "🥰 answer " + nanoid(),
+      };
+      addCard(newCard);
+    }
+  };
   // data? потому что изначально data is undefined
   return (
     <div>
       <h1>Cards 🃏</h1>
       {/*<div>{JSON.stringify(data)}</div>*/}
-      <button onClick={fetchCardsHandler}>fetch cards</button>
+      <button onClick={addCardHandler}>add card</button>
       {data?.cards.map((c, i) => {
         return <div key={i}>{c.question}</div>;
       })}
