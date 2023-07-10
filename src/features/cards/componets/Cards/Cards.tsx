@@ -5,6 +5,8 @@ import s from "./styles.module.css";
 import { useAddCardMutation, useGetCardsQuery } from "../../service/cards.api";
 import { nanoid } from "@reduxjs/toolkit";
 import { ArgCreateCardType } from "../../service/cards.api.types";
+import { toast } from "react-toastify";
+import { Pagination } from "@mui/material";
 
 type ErrorDataType = {
   error: string;
@@ -96,18 +98,48 @@ export const Cards = () => {
         question: "🚲 question " + nanoid(),
         answer: "🥰 answer " + nanoid(),
       };
-      addCard(newCard);
+      addCard(newCard)
+        .unwrap()
+        .then((res) => {
+          const cardQuestion = res.newCard.question;
+          toast.success(`Карточка ${cardQuestion} успешно добавлена`);
+        })
+        .catch((err) => {
+          toast.error(err.data.error);
+        });
     }
   };
-  // data? потому что изначально data is undefined
+
+  const changePageHandler = (event: ChangeEvent<unknown>, page: number) => {
+    console.log("page: ", page);
+  };
+
   return (
     <div>
-      <h1>Cards 🃏</h1>
-      {/*<div>{JSON.stringify(data)}</div>*/}
+      <h1>Cards</h1>
       <button onClick={addCardHandler}>add card</button>
-      {data?.cards.map((c, i) => {
-        return <div key={i}>{c.question}</div>;
-      })}
+      <div>
+        {data &&
+          data.cards.map((card) => {
+            return (
+              <div className={s.container} key={card._id}>
+                <div>
+                  <b>Question: </b>
+                  <p>{card.question}</p>{" "}
+                </div>
+                <div>
+                  <b>Answer: </b>
+                  <p>{card.answer}</p>{" "}
+                </div>
+              </div>
+            );
+          })}
+      </div>
+      <Pagination
+        // count={data && data.cardsTotalCount}
+        count={data?.cardsTotalCount}
+        onChange={changePageHandler}
+      />
     </div>
   );
 };
