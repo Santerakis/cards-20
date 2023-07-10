@@ -26,7 +26,8 @@ export const Cards = () => {
 
   console.log("packId: ", packId);
   // потому что useParams может не найти packId и вернет undefined
-  const { data, error, isLoading, isError } = useGetCardsQuery(packId ?? "");
+  const { data, error, isLoading, isError, refetch, isFetching } =
+    useGetCardsQuery(packId ?? "");
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
 
   // const [page, setPage] = useState(1);
@@ -84,7 +85,7 @@ export const Cards = () => {
   // 	return <h1 style={{ color: 'red' }}>{err.data.error}</h1>;
   // }
 
-  if (isLoading || isAddLoading)
+  if (isLoading || isAddLoading || isFetching)
     return <span style={{ fontSize: "50px" }}>♻</span>;
   if (isError) {
     const err = error as any; // const err: any = error
@@ -118,6 +119,7 @@ export const Cards = () => {
     <div>
       <h1>Cards</h1>
       <button onClick={addCardHandler}>add card</button>
+      <button onClick={refetch}>get new cards</button>
       <div>
         {data &&
           data.cards.map((card) => {
