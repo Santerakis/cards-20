@@ -16,6 +16,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   AddCardResponseType,
   ArgCreateCardType,
+  ArgGetCardsType,
   FetchCardsResponseType,
 } from "./cards.api.types";
 
@@ -32,13 +33,15 @@ export const cardsApi = createApi({
     return {
       // 1 параметр - тип того, что возвращает сервер (ResultType)
       // 2 параметр - тип query аргументов (QueryArg)
-      getCards: build.query<FetchCardsResponseType, string>({
-        query: (packId) => {
+      getCards: build.query<FetchCardsResponseType, ArgGetCardsType>({
+        query: ({ packId, page, pageCount }) => {
           return {
             method: "GET",
             url: "cards/card",
             params: {
               cardsPack_id: packId,
+              page,
+              pageCount,
             },
           };
         },

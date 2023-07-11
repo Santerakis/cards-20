@@ -23,11 +23,12 @@ type CustomerError = {
 export const Cards = () => {
   // debugger;
   let { packId } = useParams<{ packId: string }>();
+  const [page, setPage] = useState(1);
 
   console.log("packId: ", packId);
   // потому что useParams может не найти packId и вернет undefined
   const { data, error, isLoading, isError, refetch, isFetching } =
-    useGetCardsQuery(packId ?? "");
+    useGetCardsQuery({ packId: packId ?? "", page, pageCount: 4 });
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
 
   // const [page, setPage] = useState(1);
@@ -96,8 +97,8 @@ export const Cards = () => {
     if (packId) {
       const newCard: ArgCreateCardType = {
         cardsPack_id: packId,
-        question: "🚲 question " + nanoid(),
-        answer: "🥰 answer " + nanoid(),
+        question: "🚲🚲🚲 question " + nanoid(),
+        answer: "🥰🥰🥰 answer " + nanoid(),
       };
       addCard(newCard)
         .unwrap()
@@ -112,9 +113,10 @@ export const Cards = () => {
   };
 
   const changePageHandler = (event: ChangeEvent<unknown>, page: number) => {
-    console.log("page: ", page);
+    setPage(page);
   };
 
+  const count = Math.ceil(data!.cardsTotalCount / data!.pageCount);
   return (
     <div>
       <h1>Cards</h1>
@@ -138,8 +140,9 @@ export const Cards = () => {
       </div>
       <Pagination
         // count={data && data.cardsTotalCount}
-        count={data?.cardsTotalCount}
+        count={count}
         onChange={changePageHandler}
+        page={page}
       />
     </div>
   );
