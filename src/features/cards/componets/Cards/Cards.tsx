@@ -6,9 +6,10 @@ import {
   useAddCardMutation,
   useDeleteCardMutation,
   useGetCardsQuery,
+  useUpdateCardMutation,
 } from "../../service/cards.api";
 import { nanoid } from "@reduxjs/toolkit";
-import { ArgCreateCardType } from "../../service/cards.api.types";
+import { ArgCreateCardType, CardType } from "../../service/cards.api.types";
 import { toast } from "react-toastify";
 import { Pagination } from "@mui/material";
 
@@ -38,6 +39,10 @@ export const Cards = () => {
     );
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
   const [deleteCard, { isLoading: isDeleteLoading }] = useDeleteCardMutation();
+  const [updateCard, { data: updatedCard }] = useUpdateCardMutation();
+
+  console.log("updatedCard: ", updatedCard);
+
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
   //
@@ -126,6 +131,14 @@ export const Cards = () => {
   const removeCardHandler = (cardId: string) => {
     deleteCard(cardId);
   };
+  const updateCardHandler = (card: CardType) => {
+    const newCard = {
+      ...card,
+      question: "💚 new question 💚",
+      answer: "🧡 new answer🧡 ",
+    };
+    updateCard(newCard);
+  };
 
   const count = Math.ceil(data!.cardsTotalCount / data!.pageCount);
   return (
@@ -147,6 +160,9 @@ export const Cards = () => {
                 </div>
                 <button onClick={() => removeCardHandler(card._id)}>
                   delete card
+                </button>
+                <button onClick={() => updateCardHandler(card)}>
+                  update card
                 </button>
               </div>
             );

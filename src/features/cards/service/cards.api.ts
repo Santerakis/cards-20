@@ -17,8 +17,10 @@ import {
   AddCardResponseType,
   ArgCreateCardType,
   ArgGetCardsType,
+  ArgUpdateCardType,
   DeleteCardResponseType,
   FetchCardsResponseType,
+  UpdateCardResponseType,
 } from "./cards.api.types";
 
 // ✅ 2) createApi - это функция, предоставляемая RTK Query,
@@ -78,11 +80,27 @@ export const cardsApi = createApi({
         },
         invalidatesTags: ["Card"],
       }),
+      updateCard: build.mutation<UpdateCardResponseType, ArgUpdateCardType>({
+        query: (card) => {
+          return {
+            method: "PUT",
+            url: "cards/card",
+            body: {
+              card,
+            },
+          };
+        },
+        invalidatesTags: ["Card"],
+      }),
     };
   },
 });
 
 // ✅ 6) createApi возвращает объект API, который содержит все эндпоинты, определенные в параметре endpoints, а также набор вспомогательных функций, таких как useLazyQuery и usePrefetch.
-export const { useGetCardsQuery, useAddCardMutation, useDeleteCardMutation } =
-  cardsApi;
+export const {
+  useGetCardsQuery,
+  useAddCardMutation,
+  useDeleteCardMutation,
+  useUpdateCardMutation,
+} = cardsApi;
 // export const { useLazyGetCardsQuery } = cardsApi;
