@@ -30,7 +30,6 @@ export const Cards = () => {
   const { data, error, isLoading, isError, refetch, isFetching } =
     useGetCardsQuery({ packId: packId ?? "", page, pageCount: 4 });
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
-
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
   //
@@ -113,6 +112,7 @@ export const Cards = () => {
   };
 
   const changePageHandler = (event: ChangeEvent<unknown>, page: number) => {
+    console.log("page: ", page);
     setPage(page);
   };
 

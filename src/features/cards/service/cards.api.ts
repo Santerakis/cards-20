@@ -28,7 +28,8 @@ export const cardsApi = createApi({
   // ✅ 4) baseQuery - конфигурация для HTTP клиента, который будет использоваться для отправки запросов.
   baseQuery: fetchBaseQuery({ baseUrl: baseURL, credentials: "include" }),
   tagTypes: ["Card"],
-  keepUnusedDataFor: 5,
+  // keepUnusedDataFor: 60,
+  refetchOnFocus: true,
   // ✅ 5) endpoints - объект, содержащий эндпоинты для этого API, описанные с помощью функций, которые будут вызываться при вызове соответствующих методов API (например, get, post, put, patch, delete). Обязательный параметр.
   endpoints: (build) => {
     return {
