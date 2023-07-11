@@ -12,7 +12,7 @@ import { baseURL } from "common/api/common.api";
 // } from "features/cards/service/cards.api.types";
 
 //❗1) Обязательно импорт должен быть таким, иначе будут ошибки
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import {
   AddCardResponseType,
   ArgCreateCardType,
@@ -26,11 +26,14 @@ export const cardsApi = createApi({
   // ✅ 3)reducerPath - имя среза (slice) Redux, куда будут сохранены состояние и экшены для этого API.
   reducerPath: "cardsApi",
   // ✅ 4) baseQuery - конфигурация для HTTP клиента, который будет использоваться для отправки запросов.
-  baseQuery: fetchBaseQuery({ baseUrl: baseURL, credentials: "include" }),
+  baseQuery: retry(
+    fetchBaseQuery({ baseUrl: baseURL, credentials: "include" }),
+    { maxRetries: 3 }
+  ),
   tagTypes: ["Card"],
   // keepUnusedDataFor: 60,
   // refetchOnFocus: true,
-  refetchOnReconnect: true,
+  // refetchOnReconnect: true,
   // ✅ 5) endpoints - объект, содержащий эндпоинты для этого API, описанные с помощью функций, которые будут вызываться при вызове соответствующих методов API (например, get, post, put, patch, delete). Обязательный параметр.
   endpoints: (build) => {
     return {
