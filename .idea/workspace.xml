@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6cb77175-bce6-4cd1-97b0-6f87b404e945" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +49,7 @@
       <workItem from="1688972235493" duration="5841000" />
       <workItem from="1689008197751" duration="8904000" />
       <workItem from="1689062402628" duration="602000" />
-      <workItem from="1689082442029" duration="7572000" />
+      <workItem from="1689082442029" duration="7901000" />
     </task>
     <servers />
   </component>

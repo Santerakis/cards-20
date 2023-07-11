@@ -29,7 +29,8 @@ export const cardsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL, credentials: "include" }),
   tagTypes: ["Card"],
   // keepUnusedDataFor: 60,
-  refetchOnFocus: true,
+  // refetchOnFocus: true,
+  refetchOnReconnect: true,
   // ✅ 5) endpoints - объект, содержащий эндпоинты для этого API, описанные с помощью функций, которые будут вызываться при вызове соответствующих методов API (например, get, post, put, patch, delete). Обязательный параметр.
   endpoints: (build) => {
     return {
