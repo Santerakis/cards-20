@@ -28,7 +28,10 @@ export const Cards = () => {
   console.log("packId: ", packId);
   // потому что useParams может не найти packId и вернет undefined
   const { data, error, isLoading, isError, refetch, isFetching } =
-    useGetCardsQuery({ packId: packId ?? "", page, pageCount: 4 });
+    useGetCardsQuery(
+      { packId: packId ?? "", page, pageCount: 4 },
+      { pollingInterval: 3000 }
+    );
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
