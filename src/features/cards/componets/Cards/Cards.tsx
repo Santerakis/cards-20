@@ -2,7 +2,11 @@ import { useParams } from "react-router-dom";
 
 import { ChangeEvent, useState } from "react";
 import s from "./styles.module.css";
-import { useAddCardMutation, useGetCardsQuery } from "../../service/cards.api";
+import {
+  useAddCardMutation,
+  useDeleteCardMutation,
+  useGetCardsQuery,
+} from "../../service/cards.api";
 import { nanoid } from "@reduxjs/toolkit";
 import { ArgCreateCardType } from "../../service/cards.api.types";
 import { toast } from "react-toastify";
@@ -33,6 +37,7 @@ export const Cards = () => {
       // { pollingInterval: 3000 }
     );
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
+  const [deleteCard, { isLoading: isDeleteLoading }] = useDeleteCardMutation();
   // const [page, setPage] = useState(1);
   // const [pageCount, setPageCount] = useState(100);
   //
@@ -88,7 +93,7 @@ export const Cards = () => {
   // 	return <h1 style={{ color: 'red' }}>{err.data.error}</h1>;
   // }
 
-  if (isLoading || isAddLoading || isFetching)
+  if (isLoading || isAddLoading || isFetching || isDeleteLoading)
     return <span style={{ fontSize: "50px" }}>♻</span>;
   if (isError) {
     const err = error as any; // const err: any = error
@@ -118,6 +123,9 @@ export const Cards = () => {
     console.log("page: ", page);
     setPage(page);
   };
+  const removeCardHandler = (cardId: string) => {
+    deleteCard(cardId);
+  };
 
   const count = Math.ceil(data!.cardsTotalCount / data!.pageCount);
   return (
@@ -137,6 +145,9 @@ export const Cards = () => {
                   <b>Answer: </b>
                   <p>{card.answer}</p>{" "}
                 </div>
+                <button onClick={() => removeCardHandler(card._id)}>
+                  delete card
+                </button>
               </div>
             );
           })}

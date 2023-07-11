@@ -17,6 +17,7 @@ import {
   AddCardResponseType,
   ArgCreateCardType,
   ArgGetCardsType,
+  DeleteCardResponseType,
   FetchCardsResponseType,
 } from "./cards.api.types";
 
@@ -65,10 +66,23 @@ export const cardsApi = createApi({
         },
         invalidatesTags: ["Card"],
       }),
+      deleteCard: build.mutation<DeleteCardResponseType, string>({
+        query: (id) => {
+          return {
+            method: "DELETE",
+            url: "cards/card",
+            params: {
+              id,
+            },
+          };
+        },
+        invalidatesTags: ["Card"],
+      }),
     };
   },
 });
 
 // ✅ 6) createApi возвращает объект API, который содержит все эндпоинты, определенные в параметре endpoints, а также набор вспомогательных функций, таких как useLazyQuery и usePrefetch.
-export const { useGetCardsQuery, useAddCardMutation } = cardsApi;
+export const { useGetCardsQuery, useAddCardMutation, useDeleteCardMutation } =
+  cardsApi;
 // export const { useLazyGetCardsQuery } = cardsApi;
