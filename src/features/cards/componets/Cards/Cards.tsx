@@ -31,12 +31,32 @@ export const Cards = () => {
 
   console.log("packId: ", packId);
   // потому что useParams может не найти packId и вернет undefined
-  const { data, error, isLoading, isError, refetch, isFetching } =
-    useGetCardsQuery(
-      { packId: packId ?? "", page, pageCount: 4 }
-      // { pollingInterval: 3000 }
-    );
-  debugger;
+  const {
+    cards,
+    cardsTotalCount,
+    pageCount,
+    error,
+    isLoading,
+    isError,
+    isFetching,
+  } = useGetCardsQuery(
+    { packId: packId ?? "", page, pageCount: 4 },
+    {
+      selectFromResult: ({ data, error, isLoading, isError, isFetching }) => {
+        return {
+          cards: data?.cards,
+          cardsTotalCount: data?.cardsTotalCount,
+          pageCount: data?.pageCount,
+          isLoading,
+          isError,
+          isFetching,
+          error,
+        };
+      },
+    }
+    // { pollingInterval: 3000 }
+  );
+  // debugger;
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
   const [deleteCard, { isLoading: isDeleteLoading }] = useDeleteCardMutation();
   const [updateCard, { data: updatedCard }] = useUpdateCardMutation();
@@ -142,14 +162,14 @@ export const Cards = () => {
     updateCard(newCard);
   };
 
-  const count = Math.ceil(data!.cardsTotalCount / data!.pageCount);
+  const count = Math.ceil(cardsTotalCount! / pageCount!);
   return (
     <div>
       <h1>Cards</h1>
       <button onClick={addCardHandler}>add card</button>
       <div>
-        {data &&
-          data.cards.map((card) => {
+        {cards &&
+          cards.map((card) => {
             return (
               <div className={s.container} key={card._id}>
                 <div>
