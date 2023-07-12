@@ -20,6 +20,7 @@ import {
   ArgUpdateCardType,
   DeleteCardResponseType,
   FetchCardsResponseType,
+  TransformFetchCardsResponseType,
   UpdateCardResponseType,
 } from "./cards.api.types";
 
@@ -42,7 +43,7 @@ export const cardsApi = createApi({
     return {
       // 1 параметр - тип того, что возвращает сервер (ResultType)
       // 2 параметр - тип query аргументов (QueryArg)
-      getCards: build.query<FetchCardsResponseType, ArgGetCardsType>({
+      getCards: build.query<TransformFetchCardsResponseType, ArgGetCardsType>({
         query: ({ packId, page, pageCount }) => {
           return {
             method: "GET",
@@ -55,6 +56,21 @@ export const cardsApi = createApi({
           };
         },
         providesTags: ["Card"],
+        transformResponse: (res: FetchCardsResponseType) => {
+          return {
+            cards: res.cards,
+            cardsTotalCount: res.cardsTotalCount,
+            isPrivatePack: res.packPrivate,
+            packUserId: res.packUserId,
+            packName: res.packName,
+            packCreated: res.packCreated,
+            packUpdated: res.packUpdated,
+            page: res.page,
+            pageCount: res.pageCount,
+            minGrade: res.minGrade,
+            maxGrade: res.maxGrade,
+          };
+        },
       }),
       addCard: build.mutation<AddCardResponseType, ArgCreateCardType>({
         query: (card) => {

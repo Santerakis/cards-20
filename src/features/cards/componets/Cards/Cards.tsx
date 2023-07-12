@@ -26,7 +26,6 @@ type CustomerError = {
 };
 
 export const Cards = () => {
-  // debugger;
   let { packId } = useParams<{ packId: string }>();
   const [page, setPage] = useState(1);
 
@@ -37,6 +36,7 @@ export const Cards = () => {
       { packId: packId ?? "", page, pageCount: 4 }
       // { pollingInterval: 3000 }
     );
+  debugger;
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
   const [deleteCard, { isLoading: isDeleteLoading }] = useDeleteCardMutation();
   const [updateCard, { data: updatedCard }] = useUpdateCardMutation();
