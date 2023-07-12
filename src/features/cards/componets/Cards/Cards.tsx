@@ -109,8 +109,10 @@ export const Cards = () => {
     if (packId) {
       const newCard: ArgCreateCardType = {
         cardsPack_id: packId,
-        question: "🚲🚲🚲 question " + nanoid(),
-        answer: "🥰🥰🥰 answer " + nanoid(),
+        // question: "🚲🚲🚲 question " + nanoid(),
+        // answer: "🥰🥰🥰 answer " + nanoid(),
+        question: "🚲🚲🚲",
+        answer: "🥰🥰🥰",
       };
       addCard(newCard)
         .unwrap()
