@@ -117,10 +117,21 @@ export const Cards = () => {
     return <span style={{ fontSize: "50px" }}>♻</span>;
   // if (isLoading) return <LinearProgress color={"secondary"} />;
 
+  // if (error) {
+  //   debugger;
+  //   const err = error as CustomerError; // const err: any = error
+  //   return <h1>{err.data.error}</h1>;
+  // }
+
   if (error) {
     debugger;
-    const err = error as CustomerError; // const err: any = error
-    return <h1>{err.data.error}</h1>;
+    const err = error as CustomerError;
+    if ("data" in err) {
+      const errMsg = err.data as ErrorDataType;
+      if ("error" in errMsg) {
+        return <h1>{errMsg.error}</h1>;
+      }
+    }
   }
 
   const addCardHandler = () => {
