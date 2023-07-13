@@ -26,36 +26,31 @@ type CustomerError = {
 };
 
 export const Cards = () => {
-  let { packId } = useParams<{ packId: string }>();
+  // let { packId } = useParams<{ packId: string }>();
+  let packId = "dasdsad";
   const [page, setPage] = useState(1);
 
   console.log("packId: ", packId);
   // потому что useParams может не найти packId и вернет undefined
-  const {
-    cards,
-    cardsTotalCount,
-    pageCount,
-    error,
-    isLoading,
-    isError,
-    isFetching,
-  } = useGetCardsQuery(
-    { packId: packId ?? "", page, pageCount: 4 },
-    {
-      selectFromResult: ({ data, error, isLoading, isError, isFetching }) => {
-        return {
-          cards: data?.cards,
-          cardsTotalCount: data?.cardsTotalCount,
-          pageCount: data?.pageCount,
-          isLoading,
-          isError,
-          isFetching,
-          error,
-        };
-      },
-    }
-    // { pollingInterval: 3000 }
-  );
+  const { data, error, isLoading, isError, isFetching, refetch } =
+    useGetCardsQuery(
+      { packId: packId ?? "", page, pageCount: 4 }
+
+      // {
+      //   selectFromResult: ({ data, error, isLoading, isError, isFetching }) => {
+      //     return {
+      //       cards: data?.cards,
+      //       cardsTotalCount: data?.cardsTotalCount,
+      //       pageCount: data?.pageCount,
+      //       isLoading,
+      //       isError,
+      //       isFetching,
+      //       error,
+      //     };
+      //   },
+      // }
+      // { pollingInterval: 3000 }
+    );
   // debugger;
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
   const [deleteCard, { isLoading: isDeleteLoading }] = useDeleteCardMutation();
@@ -120,8 +115,11 @@ export const Cards = () => {
 
   if (isLoading || isAddLoading || isFetching || isDeleteLoading)
     return <span style={{ fontSize: "50px" }}>♻</span>;
-  if (isError) {
-    const err = error as any; // const err: any = error
+  // if (isLoading) return <LinearProgress color={"secondary"} />;
+
+  if (error) {
+    debugger;
+    const err = error as CustomerError; // const err: any = error
     return <h1>{err.data.error}</h1>;
   }
 
@@ -162,14 +160,14 @@ export const Cards = () => {
     updateCard(newCard);
   };
 
-  const count = Math.ceil(cardsTotalCount! / pageCount!);
+  const count = Math.ceil(data?.cardsTotalCount! / data?.pageCount!);
   return (
     <div>
       <h1>Cards</h1>
       <button onClick={addCardHandler}>add card</button>
       <div>
-        {cards &&
-          cards.map((card) => {
+        {data &&
+          data.cards.map((card) => {
             return (
               <div className={s.container} key={card._id}>
                 <div>

@@ -115,3 +115,15 @@ export type ArgDeleteCardType = {
   page?: number;
   pageCount?: number;
 };
+
+type ErrorDataType = {
+  error: string;
+  errorObject: Object;
+  in: string;
+  info: string;
+};
+
+type CustomerError = {
+  data: ErrorDataType;
+  status: number;
+};
