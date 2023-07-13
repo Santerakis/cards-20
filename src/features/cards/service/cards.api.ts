@@ -30,10 +30,7 @@ export const cardsApi = createApi({
   // ✅ 3)reducerPath - имя среза (slice) Redux, куда будут сохранены состояние и экшены для этого API.
   reducerPath: "cardsApi",
   // ✅ 4) baseQuery - конфигурация для HTTP клиента, который будет использоваться для отправки запросов.
-  baseQuery: retry(
-    fetchBaseQuery({ baseUrl: baseURL, credentials: "include" }),
-    { maxRetries: 3 }
-  ),
+  baseQuery: fetchBaseQuery({ baseUrl: baseURL, credentials: "include" }),
   tagTypes: ["Card"],
   // keepUnusedDataFor: 60,
   // refetchOnFocus: true,

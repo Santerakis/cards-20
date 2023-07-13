@@ -46,6 +46,12 @@ const slice = createSlice({
         (state) => {
           state.isLoading = false;
         }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith("executeQuery/rejected"),
+        (state, action) => {
+          state.error = action.payload.data.error;
+        }
       );
   },
 });

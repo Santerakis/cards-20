@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6cb77175-bce6-4cd1-97b0-6f87b404e945" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.slice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/cards/service/cards.api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +56,7 @@
       <workItem from="1689062402628" duration="602000" />
       <workItem from="1689082442029" duration="13363000" />
       <workItem from="1689147539900" duration="9142000" />
-      <workItem from="1689263206316" duration="4098000" />
+      <workItem from="1689263206316" duration="7994000" />
     </task>
     <servers />
   </component>
@@ -66,14 +68,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx</url>
-          <line>53</line>
+          <line>54</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/features/cards/componets/Cards/Cards.tsx</url>
-          <line>120</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
