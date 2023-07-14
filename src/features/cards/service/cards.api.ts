@@ -16,6 +16,7 @@ import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import {
   AddCardResponseType,
   ArgCreateCardType,
+  ArgDeleteCardType,
   ArgGetCardsType,
   ArgUpdateCardType,
   DeleteCardResponseType,
@@ -81,16 +82,48 @@ export const cardsApi = createApi({
         },
         invalidatesTags: ["Card"],
       }),
-      deleteCard: build.mutation<DeleteCardResponseType, string>({
-        query: (id) => {
+      deleteCard: build.mutation<DeleteCardResponseType, ArgDeleteCardType>({
+        query: ({ packId, cardId, page, pageCount }) => {
           return {
             method: "DELETE",
             url: "cards/card",
             params: {
-              id,
+              id: cardId,
             },
           };
         },
+        async onQueryStarted(
+          // 1 параметр: QueryArg - аргументы, которые приходят в query
+          { packId, cardId, page, pageCount },
+          // 2 параметр: MutationLifecycleApi - dispatch, queryFulfilled, getState и пр.
+          { dispatch, queryFulfilled }
+        ) {
+          const patchResult = dispatch(
+            cardsApi.util.updateQueryData(
+              // 1 параметр: endpointName, который мы выполняем после удачного первого запроса (invalidatesTags)
+              "getCards",
+              // 2 параметр: QueryArgFrom - параметры, которые приходят в endpoint выше
+              { packId, page, pageCount },
+              // 3 параметр: Коллбек функция.
+              // В данном блоке мы делаем логику, которая должна выполниться синхронно,
+              // без необходимости дожидаться ответа от сервера.
+              // Говоря проще пишем здесь логику, которую раньше писали в редьюсере,
+              // чтобы изменять стейт
+              (draft) => {
+                const index = draft.cards.findIndex(
+                  (card) => card._id === cardId
+                );
+                if (index !== -1) draft.cards.splice(index, 1);
+              }
+            )
+          );
+          try {
+            await queryFulfilled;
+          } catch {
+            patchResult.undo();
+          }
+        },
+
         invalidatesTags: ["Card"],
       }),
       updateCard: build.mutation<UpdateCardResponseType, ArgUpdateCardType>({

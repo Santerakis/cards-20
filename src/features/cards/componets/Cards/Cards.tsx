@@ -27,8 +27,8 @@ type CustomerError = {
 };
 
 export const Cards = () => {
-  // let { packId } = useParams<{ packId: string }>();
-  let packId = "dasdsad";
+  let { packId } = useParams<{ packId: string }>();
+  // let packId = "dasdsad";
   const [page, setPage] = useState(1);
 
   console.log("packId: ", packId);
@@ -52,7 +52,6 @@ export const Cards = () => {
       // }
       // { pollingInterval: 3000 }
     );
-  // debugger;
   const [addCard, { isLoading: isAddLoading }] = useAddCardMutation();
   const [deleteCard, { isLoading: isDeleteLoading }] = useDeleteCardMutation();
   const [updateCard, { data: updatedCard }] = useUpdateCardMutation();
@@ -114,8 +113,8 @@ export const Cards = () => {
   // 	return <h1 style={{ color: 'red' }}>{err.data.error}</h1>;
   // }
 
-  if (isLoading || isAddLoading || isFetching || isDeleteLoading)
-    return <span style={{ fontSize: "50px" }}>♻</span>;
+  // if (isLoading || isAddLoading || isFetching || isDeleteLoading)
+  // return <span style={{ fontSize: "50px" }}>♻</span>;
   // if (isLoading) return <LinearProgress color={"secondary"} />;
 
   if (isError) {
@@ -158,8 +157,13 @@ export const Cards = () => {
     console.log("page: ", page);
     setPage(page);
   };
-  const removeCardHandler = (cardId: string) => {
-    deleteCard(cardId);
+  const removeCardHandler = (card: CardType) => {
+    deleteCard({
+      cardId: card._id,
+      packId: card.cardsPack_id,
+      // page,
+      // pageCount: 4,
+    });
   };
   const updateCardHandler = (card: CardType) => {
     const newCard = {
@@ -188,7 +192,7 @@ export const Cards = () => {
                   <b>Answer: </b>
                   <p>{card.answer}</p>{" "}
                 </div>
-                <button onClick={() => removeCardHandler(card._id)}>
+                <button onClick={() => removeCardHandler(card)}>
                   delete card
                 </button>
                 <button onClick={() => updateCardHandler(card)}>
